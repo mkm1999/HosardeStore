@@ -1,0 +1,23 @@
+﻿@model Application.PrivacyAndPolicy.IGetPrivacyAndPolicyService.GetPolicyDto
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <form method="post" action="/Admin/PrivacyAndPolicy/index">
+        @if (!string.IsNullOrEmpty(ViewBag.Massage))
+        {
+            <p class="text-info">@ViewBag.Massage</p>
+        }
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">قوانین:</label>
+            <textarea name="PolicyText" class="form-control" id="exampleFormControlTextarea1" rows="3">@Model.PolicyText</textarea>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">حریم خصوصی:</label>
+            <textarea name="PrivacyText" class="form-control" id="exampleFormControlTextarea1" rows="3">@Model.PrivacyText</textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">ثبت</button>
+    </form>
+</div>

@@ -1,0 +1,22 @@
+﻿@using Application.PrivacyAndPolicy.IGetPrivacyAndPolicyService;
+@model GetPolicyDto
+@{
+    ViewData["Title"] = "PrivacyAndPolicy";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="container">
+    <h1 class="text-primary">حریم خصوصی و قوانین</h1>
+    <hr class="m-5" />
+    <h3 class="text-warning mt-5">حریم خصوصی</h3>
+    <p class="m-2">
+        @Model.PrivacyText
+    </p>
+    <hr class="m-5" />
+    <h3 class="text-warning mt-5">قوانین</h3>
+    <p class="mt-2">
+        @Model.PolicyText
+    </p>
+</div>
+
+
+

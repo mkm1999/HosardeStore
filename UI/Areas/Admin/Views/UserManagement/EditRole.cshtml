@@ -1,0 +1,55 @@
+﻿@model List<string>
+
+@{
+    ViewData["Title"] = "EditRole";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1>EditRole</h1>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form action="EditRole" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label  class="control-label">کاربر:</label>
+                <h3>@ViewBag.UserName</h3>
+                <input hidden name="UserId" value="@ViewBag.UserId" />
+                <input hidden value="@ViewBag.UserName" name="UserName" value="@ViewBag.UserId" />
+            </div>
+            <table class="table table-striped table-dark">
+                <thead>
+                    <tr>
+                        <th>نام نقش</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@item</td>
+                            <td>
+                                <a class="btn btn-danger" href="/Admin/UserManagement/DeleteUserRole?UserId=@ViewBag.UserId&Role=@item&UserName=@ViewBag.UserName">حذف</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+            <select name="Role" asp-items="@ViewBag.Roles">
+                <option>Please select one</option>
+            </select>
+
+            <div class="form-group mt-2">
+                <input type="submit" value="افزودن به نقش ها" class="btn btn-primary" />
+            </div>
+
+            
+        </form>
+    </div>
+</div>
+
+<div>
+    <a class="btn btn-secondary" asp-action="Index">بازگشت به لیست</a>
+</div>
+
