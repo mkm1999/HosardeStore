@@ -63,9 +63,8 @@
             </td>
             <td>
                 <div class="btn-group">
-                    <btn  class="btn btn-warning">ویرایش</btn>
+                    <a class="btn btn-warning" href="/Admin/Products/ProductDetail?ProductId=@item.Id">جزئیات و ویرایش</a>
                     <btn onclick="DeleteProduct(@item.Id , '@item.Name')" class="btn btn-danger">حذف</btn>
-                    <btn class="btn btn-primary">جزئیات</btn>
                 </div>
             </td>
         </tr>

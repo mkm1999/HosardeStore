@@ -5,6 +5,7 @@ using Application.Categories.GetCategoriesService;
 using Application.Categories.GetChildsCategories;
 using Application.Products.AddNewProductService;
 using Application.Products.DeleteProductService;
+using Application.Products.FindProductService;
 using Application.Products.GetProductsForAdminService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -27,9 +28,11 @@ namespace UI.Areas.Admin.Controllers
         private readonly IAddNewProduct addNewProduct;
         private readonly IGetProductsForAdmin getProductsForAdmin;
         private readonly IDeleteProduct deleteProduct;
+        private readonly IFindProduct findProduct;
 
         public ProductsController(IGetCategories getCategories,IEditCategory editCategory , IDeleteCategory deleteCategory,IAddCategory addCategory,
-            IGetChildCategories getChildCategories,IAddNewProduct addNewProduct,IGetProductsForAdmin getProductsForAdmin, IDeleteProduct deleteProduct)
+            IGetChildCategories getChildCategories,IAddNewProduct addNewProduct,IGetProductsForAdmin getProductsForAdmin, IDeleteProduct deleteProduct,
+            IFindProduct findProduct)
         {
             _getCategories = getCategories;
             _editCategory = editCategory;
@@ -39,6 +42,7 @@ namespace UI.Areas.Admin.Controllers
             this.addNewProduct = addNewProduct;
             this.getProductsForAdmin = getProductsForAdmin;
             this.deleteProduct = deleteProduct;
+            this.findProduct = findProduct;
         }
 
         public IActionResult Index(int? CategoryId = null)
@@ -111,6 +115,19 @@ namespace UI.Areas.Admin.Controllers
             var result = deleteProduct.Execute(ProductId);
             if(! result.isSuccess)  return BadRequest();
             return RedirectToAction("Index", "Products");
+        }
+
+        public IActionResult ProductDetail(int ProductId)
+        {
+            var Categories = getChildCategories.Execute().Select(r => new { Name = r.GrandParentName + "-" + r.ParentName + "-" + r.Name, Id = r.Id }).ToList();
+            ViewBag.Categories = new SelectList(Categories, "Id", "Name");
+
+
+            var Product = findProduct.FindWithId(ProductId);
+            if(Product == null) return BadRequest();
+
+
+            return View(Product);
         }
     }
 }

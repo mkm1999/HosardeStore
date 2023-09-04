@@ -9,6 +9,7 @@ using Application.PrivacyAndPolicy.IGetPrivacyAndPolicyService;
 using Application.PrivacyAndPolicy.SetPrivacyAndPolicy;
 using Application.Products.AddNewProductService;
 using Application.Products.DeleteProductService;
+using Application.Products.FindProductService;
 using Application.Products.GetProductsForAdminService;
 using Domain.Entities;
 using Infrastructure.Helpers;
@@ -104,6 +105,7 @@ namespace UI
             services.AddTransient<IAddNewProduct,AddNewProduct>();
             services.AddTransient<IGetProductsForAdmin,GetProductsForAdmin>();
             services.AddTransient<IDeleteProduct, DeleteProduct>();
+            services.AddTransient<IFindProduct, FindProduct>();
 
 
         }
