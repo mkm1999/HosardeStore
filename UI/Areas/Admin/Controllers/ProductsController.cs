@@ -4,6 +4,7 @@ using Application.Categories.EditCategoryService;
 using Application.Categories.GetCategoriesService;
 using Application.Categories.GetChildsCategories;
 using Application.Products.AddNewProductService;
+using Application.Products.GetProductsForAdminService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,8 +24,9 @@ namespace UI.Areas.Admin.Controllers
         private readonly IAddCategory _addCategory;
         private readonly IGetChildCategories getChildCategories;
         private readonly IAddNewProduct addNewProduct;
+        private readonly IGetProductsForAdmin getProductsForAdmin;
 
-        public ProductsController(IGetCategories getCategories,IEditCategory editCategory , IDeleteCategory deleteCategory,IAddCategory addCategory, IGetChildCategories getChildCategories,IAddNewProduct addNewProduct)
+        public ProductsController(IGetCategories getCategories,IEditCategory editCategory , IDeleteCategory deleteCategory,IAddCategory addCategory, IGetChildCategories getChildCategories,IAddNewProduct addNewProduct,IGetProductsForAdmin getProductsForAdmin)
         {
             _getCategories = getCategories;
             _editCategory = editCategory;
@@ -32,11 +34,13 @@ namespace UI.Areas.Admin.Controllers
             _addCategory = addCategory;
             this.getChildCategories = getChildCategories;
             this.addNewProduct = addNewProduct;
+            this.getProductsForAdmin = getProductsForAdmin;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int? CategoryId = null)
         {
-            return View();
+            var result = getProductsForAdmin.Execute(CategoryId);
+            return View(result);
         }
 
         public IActionResult Categories(int? ParentCategoryId)
