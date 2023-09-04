@@ -4,6 +4,7 @@ using Application.Categories.EditCategoryService;
 using Application.Categories.GetCategoriesService;
 using Application.Categories.GetChildsCategories;
 using Application.Products.AddNewProductService;
+using Application.Products.DeleteProductService;
 using Application.Products.GetProductsForAdminService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -25,8 +26,10 @@ namespace UI.Areas.Admin.Controllers
         private readonly IGetChildCategories getChildCategories;
         private readonly IAddNewProduct addNewProduct;
         private readonly IGetProductsForAdmin getProductsForAdmin;
+        private readonly IDeleteProduct deleteProduct;
 
-        public ProductsController(IGetCategories getCategories,IEditCategory editCategory , IDeleteCategory deleteCategory,IAddCategory addCategory, IGetChildCategories getChildCategories,IAddNewProduct addNewProduct,IGetProductsForAdmin getProductsForAdmin)
+        public ProductsController(IGetCategories getCategories,IEditCategory editCategory , IDeleteCategory deleteCategory,IAddCategory addCategory,
+            IGetChildCategories getChildCategories,IAddNewProduct addNewProduct,IGetProductsForAdmin getProductsForAdmin, IDeleteProduct deleteProduct)
         {
             _getCategories = getCategories;
             _editCategory = editCategory;
@@ -35,6 +38,7 @@ namespace UI.Areas.Admin.Controllers
             this.getChildCategories = getChildCategories;
             this.addNewProduct = addNewProduct;
             this.getProductsForAdmin = getProductsForAdmin;
+            this.deleteProduct = deleteProduct;
         }
 
         public IActionResult Index(int? CategoryId = null)
@@ -100,6 +104,13 @@ namespace UI.Areas.Admin.Controllers
             request.Images = Images;
             var result = addNewProduct.Execute(request);
             return Json(result);
+        }
+
+        public IActionResult DeleteProduct(int ProductId)
+        {
+            var result = deleteProduct.Execute(ProductId);
+            if(! result.isSuccess)  return BadRequest();
+            return RedirectToAction("Index", "Products");
         }
     }
 }

@@ -63,8 +63,8 @@
             </td>
             <td>
                 <div class="btn-group">
-                    <btn class="btn btn-warning">ویرایش</btn>
-                    <btn class="btn btn-danger">حذف</btn>
+                    <btn  class="btn btn-warning">ویرایش</btn>
+                    <btn onclick="DeleteProduct(@item.Id , '@item.Name')" class="btn btn-danger">حذف</btn>
                     <btn class="btn btn-primary">جزئیات</btn>
                 </div>
             </td>
@@ -72,3 +72,21 @@
 }
     </tbody>
 </table>
+@section script{
+    <script>
+        function DeleteProduct(Id , ProductName){
+            swal({
+                title: "آیا اطمینان دارید؟",
+                text: `محصول با نام ${ProductName} حذف خواهد شد!`,
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    document.location = `/Admin/Products/DeleteProduct?ProductId=${Id}`
+                }
+            });
+        }
+    </script>
+}
