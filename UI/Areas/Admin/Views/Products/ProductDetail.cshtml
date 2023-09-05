@@ -52,11 +52,11 @@
                                             <label for="basicInput">نمایش داده شود؟ </label>
                                             @if (Model.IsEnable)
                                             {
-                                                <input class="form-check-input d-block m-5 w-50 h-25" type="checkbox" value="" id="flexCheckChecked" checked>
+                                                <input onclick="IsCheckedChange()" class="form-check-input d-block m-5 w-50 h-25" type="checkbox" value="" id="Displayed" checked>
                                             }
                                             else
                                             {
-                                                <input class="form-check-input d-block m-5 w-50 h-25" type="checkbox" value="" id="flexCheckChecked">
+                                                <input onclick="IsCheckedChange()" class="form-check-input d-block m-5 w-50 h-25" type="checkbox" value="" id="Displayed">
                                             }
                                         </fieldset>
                                     </div>                                   
@@ -65,7 +65,7 @@
                                             <label for="basicInput">دسته بندی </label>
 
                                             <select class="form-control" id="Category" asp-items="@ViewBag.Categories">
-                                                <option value="@Model.Id">@Model.CategoryName</option>
+                                                <option value="@Model.CategoryId">@Model.CategoryName</option>
                                             </select>
                                         </fieldset>
                                     </div>
@@ -81,14 +81,15 @@
                                     @foreach (var item in Model.Images)
                                     {
                                         <div class="col-xl-2 col-lg-3 col-md-6 mb-1">
-                                            <img class="img-fluid" src="@item"> 
+                                            <img class="img-fluid" src="@item.Src">
+                                            <btn class="btn btn-sm btn-danger" onclick="DeleteProductImage(@Model.Id,@item.Id)">حذف</btn>
                                         </div>
                                     }
 
                                     <div class="col-xl-12 col-lg-12 col-md-12 mb-1">
                                         <fieldset class="form-group">
                                             <label for="basicInput"> توضیحات</label>
-                                            <textarea id="Description" class="form-control " rows="5"></textarea>
+                                            <textarea id="Description" class="form-control " rows="5">@Model.Description</textarea>
                                         </fieldset>
                                     </div>
 
@@ -176,11 +177,13 @@
 
 
     <script>
-        var IsChecked = false;
-        $("#Displayed").on("click", () => {
+        var IsChecked = @Model.IsEnable.ToString().ToLower();
+
+        function IsCheckedChange(){
             if (IsChecked) IsChecked = false;
             else IsChecked = true;
-        })
+        }
+
         $("#btnAddFeatures").on("click", function () {
 
             var txtDisplayName = $("#txtDisplayName").val();
@@ -218,6 +221,7 @@
             data.append("IsActive", IsChecked);
             data.append("CategoryId", $('#Category').find('option:selected').val());
             data.append("Description", $("#Description").val());
+            data.append("ProductId", @Model.Id);
 
 
             //دریافت عکس های انتخاب شده توسط کاربر و قرار دادن عکس ها در متغیر data
@@ -250,7 +254,7 @@
             // ارسال اطلاعات بع کنترلر
             var ajaxRequest = $.ajax({
                 type: "POST",
-                url: "AddNewProduct",
+                url: "EditProduct",
                 contentType: false,
                 processData: false,
                 data: data,
@@ -288,6 +292,21 @@
                 // Do other operation
             });
         });
+
+        function DeleteProductImage(ProductId,ImageId){
+            swal({
+                title: "آیا اطمینان دارید؟",
+                text: `تصویر حذف خواهد شد!`,
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        document.location = `/Admin/Products/DeleteImage?ProductId=${ProductId}&ImageId=${ImageId}`
+                    }
+                });
+        }
     </script>
 }
 

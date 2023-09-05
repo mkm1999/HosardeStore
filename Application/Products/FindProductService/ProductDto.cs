@@ -12,8 +12,15 @@ namespace Application.Products.FindProductService
         public int Inventory { get; set; }
         public bool IsEnable { get; set; }
         public string CategoryName { get; set; }
-        public List<string> Images { get; set; }
+        public int CategoryId { get; set; }
+        public List<ImageDto> Images { get; set; }
         public List<propertyDto> Properties { get; set; }
 
+    }
+
+    public class ImageDto
+    {
+        public int Id { get; set; }
+        public string Src { get; set; }
     }
 }

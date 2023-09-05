@@ -27,7 +27,8 @@ namespace Application.Products.FindProductService
                 Inventory = productQuery.Inventory,
                 Price = productQuery.Price,
                 IsEnable = productQuery.IsEnable,
-                Images = new List<string> { },
+                CategoryId = productQuery.CategoryId,
+                Images = new List<ImageDto> { },
                 Properties = new List<propertyDto> { },
             };
             product.CategoryName = productQuery.Category.Name;
@@ -42,7 +43,11 @@ namespace Application.Products.FindProductService
 
             foreach (var item in productQuery.Images)
             {
-                product.Images.Add(item.Url);
+                product.Images.Add(new ImageDto
+                {
+                    Id = item.Id,
+                    Src = item.Url
+                });
             }
             foreach(var item in productQuery.Properties)
             {

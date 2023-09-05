@@ -5,8 +5,10 @@ using Application.Categories.GetCategoriesService;
 using Application.Categories.GetChildsCategories;
 using Application.Products.AddNewProductService;
 using Application.Products.DeleteProductService;
+using Application.Products.EditProductService;
 using Application.Products.FindProductService;
 using Application.Products.GetProductsForAdminService;
+using Application.Products.IDeleteProductImageService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -29,10 +31,12 @@ namespace UI.Areas.Admin.Controllers
         private readonly IGetProductsForAdmin getProductsForAdmin;
         private readonly IDeleteProduct deleteProduct;
         private readonly IFindProduct findProduct;
+        private readonly IDeleteProductImage deleteProductImage;
+        private readonly IEditProduct editProduct;
 
         public ProductsController(IGetCategories getCategories,IEditCategory editCategory , IDeleteCategory deleteCategory,IAddCategory addCategory,
             IGetChildCategories getChildCategories,IAddNewProduct addNewProduct,IGetProductsForAdmin getProductsForAdmin, IDeleteProduct deleteProduct,
-            IFindProduct findProduct)
+            IFindProduct findProduct , IDeleteProductImage deleteProductImage , IEditProduct editProduct)
         {
             _getCategories = getCategories;
             _editCategory = editCategory;
@@ -43,6 +47,8 @@ namespace UI.Areas.Admin.Controllers
             this.getProductsForAdmin = getProductsForAdmin;
             this.deleteProduct = deleteProduct;
             this.findProduct = findProduct;
+            this.deleteProductImage = deleteProductImage;
+            this.editProduct = editProduct;
         }
 
         public IActionResult Index(int? CategoryId = null)
@@ -128,6 +134,28 @@ namespace UI.Areas.Admin.Controllers
 
 
             return View(Product);
+        }
+
+        public IActionResult DeleteImage(int ImageId , int ProductId)
+        {
+            var result = deleteProductImage.Execute(ImageId);
+            if(! result.isSuccess) return BadRequest();
+            return RedirectToAction("ProductDetail","Products",new {ProductId = ProductId});
+
+        }
+
+        [HttpPost]
+        public IActionResult EditProduct(RequestEditProductDto request, List<PropertiesDto> properties)
+        {
+            request.Properties = properties;
+            List<IFormFile> Images = new();
+            foreach (var item in Request.Form.Files)
+            {
+                Images.Add(item);
+            }
+            request.Images = Images;
+            var result = editProduct.Execute(request);
+            return Json(result);
         }
     }
 }

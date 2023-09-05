@@ -9,8 +9,10 @@ using Application.PrivacyAndPolicy.IGetPrivacyAndPolicyService;
 using Application.PrivacyAndPolicy.SetPrivacyAndPolicy;
 using Application.Products.AddNewProductService;
 using Application.Products.DeleteProductService;
+using Application.Products.EditProductService;
 using Application.Products.FindProductService;
 using Application.Products.GetProductsForAdminService;
+using Application.Products.IDeleteProductImageService;
 using Domain.Entities;
 using Infrastructure.Helpers;
 using Microsoft.AspNetCore.Builder;
@@ -106,6 +108,8 @@ namespace UI
             services.AddTransient<IGetProductsForAdmin,GetProductsForAdmin>();
             services.AddTransient<IDeleteProduct, DeleteProduct>();
             services.AddTransient<IFindProduct, FindProduct>();
+            services.AddTransient<IDeleteProductImage, DeleteProductImage>();
+            services.AddTransient<IEditProduct, EditProduct>();
 
 
         }
