@@ -1,0 +1,91 @@
+﻿@model IEnumerable<Application.Products.GetProductsForAdminService.GetProductsForAdminDto>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-primary">مدیریت محصولات</h1>
+
+<p>
+    <a asp-action="AddNewProduct">Create New</a>
+</p>
+<table class="table table-striped ">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsEnable)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Inventory)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CategoryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Brand)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsEnable)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Inventory)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Brand)
+            </td>
+            <td>
+                <div class="btn-group">
+                    <a class="btn btn-warning" href="/Admin/Products/ProductDetail?ProductId=@item.Id">جزئیات و ویرایش</a>
+                    <btn onclick="DeleteProduct(@item.Id , '@item.Name')" class="btn btn-danger">حذف</btn>
+                </div>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+@section script{
+    <script>
+        function DeleteProduct(Id , ProductName){
+            swal({
+                title: "آیا اطمینان دارید؟",
+                text: `محصول با نام ${ProductName} حذف خواهد شد!`,
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            })
+            .then((willDelete) => {
+                if (willDelete) {
+                    document.location = `/Admin/Products/DeleteProduct?ProductId=${Id}`
+                }
+            });
+        }
+    </script>
+}
