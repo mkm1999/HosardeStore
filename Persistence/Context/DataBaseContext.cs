@@ -53,6 +53,15 @@ namespace Persistence.Context
                         Id = 4
                     }
                 );
+
+            builder.Entity<PrivacyEntity>().HasData(
+                    new PrivacyEntity
+                    {
+                        Id = 1,
+                        PolicyText = "Text For Policy",
+                        PrivacyText = "Text For Privacy"
+                    }
+                );
         }
 
         public DbSet<PrivacyEntity> privacyEntities { get; set; }
