@@ -36,29 +36,16 @@
                             <div class="col-lg-8 pr">
                                 <div class="header-search row text-right">
                                     <div class="header-search-box">
-                                        <form action="#" class="form-search">
-                                            <input type="search" class="header-search-input" name="search-input"
+                                        <form asp-action="Index" asp-controller="Products" class="form-search">
+                                            <input type="search" class="header-search-input" name="SearchKey"
                                                    placeholder="نام کالا، برند و یا دسته مورد نظر خود را جستجو کنید…">
                                             <div class="action-btns">
                                                 <button class="btn btn-search" type="submit">
                                                     <img src="~/assets/images/search.png" alt="search">
                                                 </button>
-                                               @* <div class="search-filter">
-                                                    <div class="form-ui">
-                                                        <div class="custom-select-ui">
-                                                            <select class="right">
-                                                                <option>همه دسته ها</option>
-                                                                <option>کالای دیجیتال</option>
-                                                                <option>آرایشی بهداشتی</option>
-                                                                <option>ابزاری اداری</option>
-                                                                <option>مد پوشاک</option>
-                                                                <option>خانه آشپز خانه</option>
-                                                                <option>لوازم تحریر و هنر</option>
-                                                                <option>کودک و نوزاد</option>
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>*@
+
+                                                @await Component.InvokeAsync("SearchCategories")
+                                               
                                             </div>
                                         </form>
                                         <div class="search-result">
