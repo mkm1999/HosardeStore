@@ -14,14 +14,21 @@ namespace Application.Products.GetProductsForSiteService
             _context = context;
         }
 
-        public List<GetProductsForSiteDto> Execute(string SearchKey)
+        public List<GetProductsForSiteDto> Execute(string SearchKey , int? CategoryId = null)
         {
-            var ProductsQuery = _context.products.Include(p => p.Images).Include(p => p.Category).AsQueryable();
+            var ProductsQuery = _context.products.Include(p => p.Images).Include(p => p.Category).ThenInclude(c => c.ParentCategory).AsQueryable();
             if(! string.IsNullOrEmpty(SearchKey))
             {
-                ProductsQuery = ProductsQuery.Where(p => p.Name.Contains(SearchKey) || p.Barnd.Contains(SearchKey) || p.Category.Name.Contains(SearchKey));
+                ProductsQuery = ProductsQuery.Where(p => p.Name.Contains(SearchKey) || p.Barnd.Contains(SearchKey) || p.Category.Name.Contains(SearchKey)).AsQueryable();
             }
-
+            if(CategoryId != null)
+            {
+                ProductsQuery = ProductsQuery.Where(
+                    p => p.CategoryId ==  CategoryId ||
+                    p.Category.ParentCategoryId == CategoryId ||
+                    p.Category.ParentCategory.ParentCategoryId == CategoryId
+                    ).AsQueryable();
+            }
             var Products = ProductsQuery.Select(p => new GetProductsForSiteDto
             {
                 ImgSrc = p.Images.FirstOrDefault().Url,

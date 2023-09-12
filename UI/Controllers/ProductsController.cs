@@ -15,9 +15,9 @@ namespace UI.Controllers
             this.findProduct = findProduct;
         }
 
-        public IActionResult Index(string SearchKey)
+        public IActionResult Index(string SearchKey, int? CategoryId = null)
         {
-            var products = getProductsForSite.Execute(SearchKey);
+            var products = getProductsForSite.Execute(SearchKey,CategoryId);
             return View(products);
         }
 

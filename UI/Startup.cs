@@ -3,6 +3,7 @@ using Application.Categories.DeleteCategoryService;
 using Application.Categories.EditCategoryService;
 using Application.Categories.GetCategoriesService;
 using Application.Categories.GetChildsCategories;
+using Application.Categories.GetFullCategroiesService;
 using Application.ImageUploadService;
 using Application.Interfaces.Context;
 using Application.PrivacyAndPolicy.IGetPrivacyAndPolicyService;
@@ -101,6 +102,7 @@ namespace UI
             services.AddTransient<IDeleteCategory, DeleteCategory>();
             services.AddTransient<IEditCategory, EditCategory>();
             services.AddTransient<IGetChildCategories, GetChildCategories>();
+            services.AddTransient<IGetFullCategories, GetFullCategories>();
 
             services.AddTransient<IUploadImage, UploadImage>();
 

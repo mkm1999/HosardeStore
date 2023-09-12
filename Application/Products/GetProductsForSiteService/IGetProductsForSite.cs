@@ -6,6 +6,6 @@ namespace Application.Products.GetProductsForSiteService
 {
     public interface IGetProductsForSite
     {
-        List<GetProductsForSiteDto> Execute(string SearchKey);
+        List<GetProductsForSiteDto> Execute(string SearchKey, int? CategoryId = null);
     }
 }

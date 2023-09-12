@@ -1,0 +1,48 @@
+﻿@using Application.Categories.GetFullCategroiesService;
+@model List<FullCategoryDto>
+@{
+    Layout = null;
+}
+
+<nav class="header-main-nav">
+    <div class="d-block">
+        <div class="align-items-center">
+            <ul class="menu-ul mega-menu-level-one">
+                @foreach (var item in Model)
+                {
+                    <li id="nav-menu-item" class="menu-item nav-overlay">
+                        <a href="/Products?CategoryId=@item.Id" class="current-link-menu">
+                            @item.Name
+                        </a>
+                        <ul class="sub-menu is-mega-menu mega-menu-level-two">
+                            @foreach (var child in item.Children)
+                            {
+                                <li class="menu-mega-item menu-item-type-mega-menu">
+                                    <a href="/Products?CategoryId=@child.Id" class="mega-menu-link">
+                                        @child.Name
+                                    </a>
+                                    <ul class="sub-menu mega-menu-level-three">
+                                        @foreach (var child2 in child.Children)
+                                        {
+                                            <li class="menu-mega-item-three">
+                                                <a href="/Products?CategoryId=@child2.Id">
+                                                    @child2.Name
+                                                </a>
+                                            </li>
+
+                                        }
+                                    </ul>
+                                </li>
+                            }
+                            
+                            @*<li class="bg-image">
+                                <img src="~/assets/images/menu-main/digital.png" alt="">
+                            </li>*@
+                        </ul>
+                    </li>
+
+                }
+            </ul>
+        </div>
+    </div>
+</nav>

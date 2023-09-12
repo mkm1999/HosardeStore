@@ -22,7 +22,6 @@
                 <td>@item.ParentName</td>
                 <td>
                     <button onclick="EditCategory('@item.Name',@item.Id)" class="btn btn-warning">ویرایش</button>
-                    <button onclick="DeleteCategory(@item.Id,'@item.Name')" class="btn btn-danger">حذف</button>
                     @if (item.HasChild)
                     {
                         <a href="/Admin/Products/Categories?ParentCategoryId=@item.Id" class="btn btn-primary">مشاهده فرزندان</a>
@@ -30,6 +29,8 @@
                     else
                     {
                         <button class="btn btn-secondary" onclick="AddNewCategory(@item.Id)">افزودن فرزند</button>
+                        <button onclick="DeleteCategory(@item.Id,'@item.Name')" class="btn btn-danger">حذف</button>
+
                     }
 
                 </td>
