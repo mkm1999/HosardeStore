@@ -136,6 +136,11 @@ namespace UI.Controllers
                 return Json(new ResultDto { isSuccess = false, message = "حساب شما مسدود شده است!" });
 
             }
+            else if (Result.IsNotAllowed)
+            {
+                return Json(new ResultDto { isSuccess = false, message = "حساب شما مسدود است یا تلفن خود را تایید نکرده اید!" });
+
+            }
 
             return Json(new ResultDto { isSuccess = false , message = "رمز عبور اشتباه است!"});
         }
