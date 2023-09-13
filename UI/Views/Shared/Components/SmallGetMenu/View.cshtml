@@ -1,0 +1,48 @@
+﻿@model List<Application.Categories.GetFullCategroiesService.FullCategoryDto>
+@{
+    ViewData["Title"] = "View";
+}
+<nav class="sidebar">
+    <div class="nav-header">
+        <div class="header-cover"></div>
+        <div class="logo-wrap">
+            <a class="logo-icon" href="#">
+                <img alt="logo-icon" src="~/assets/images/logo.png"
+                     width="40">
+            </a>
+        </div>
+    </div>
+    <ul class="nav-categories ul-base">
+        @foreach (var item in Model)
+        {
+            <li>
+                <a href="/Products?CategoryId=@item.Id" class="" type="button" data-toggle="collapse"
+                   data-target="#collapse_@item.Id" aria-expanded="false" aria-controls="collapseOne">
+                    <i class="mdi mdi-chevron-down"></i>@item.Name
+                </a>
+                <div id="collapse_@item.Id" class="collapse" aria-labelledby="headingOne"
+                     data-parent="#accordionExample" style="">
+                    <ul>
+                        @foreach (var child in item.Children)
+                        {
+                            <li class="has-sub">
+                                <a href="/Products?CategoryId=@child.Id" class="category-level-2">@child.Name</a>
+                                <ul>
+                                    @foreach (var child2 in child.Children)
+                                    {
+                                        <li><a href="/Products?CategoryId=@child2.Id" class="category-level-3">@child2.Name</a></li>
+
+                                    }
+                                </ul>
+                            </li>
+                        }
+
+                        
+                    </ul>
+                </div>
+            </li>
+        }
+        
+        <li><a href="/Products">همه محصولات</a></li>
+    </ul>
+</nav>
