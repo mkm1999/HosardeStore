@@ -1,4 +1,5 @@
-﻿using Application.PrivacyAndPolicy.IGetPrivacyAndPolicyService;
+﻿using Application.CartServices;
+using Application.PrivacyAndPolicy.IGetPrivacyAndPolicyService;
 using Common;
 using Domain.Entities;
 using Microsoft.AspNetCore.Identity;
@@ -16,11 +17,14 @@ namespace UI.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly IGetPolicy _getpolicy;
-        public AuthenticationController(UserManager<User> userManager, SignInManager<User> signInManager , IGetPolicy getpolicy)
+        private readonly ICartServices cartServices;
+
+        public AuthenticationController(UserManager<User> userManager, SignInManager<User> signInManager , IGetPolicy getpolicy, ICartServices cartServices)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _getpolicy = getpolicy;
+            this.cartServices = cartServices;
         }
         public IActionResult Index()
         {
@@ -129,6 +133,12 @@ namespace UI.Controllers
             var Result = _signInManager.PasswordSignInAsync(user, loginViewModel.Password, loginViewModel.IsPersistent, true).Result;
             if (Result.Succeeded)
             {
+                Guid CartGuid;
+                Guid.TryParse(Request.Cookies["CartId"], out CartGuid);
+                if(CartGuid != default)
+                {
+                    cartServices.CartUserSpecification(CartGuid,user.Id);
+                }
                 return Json(new ResultDto<string> { isSuccess = true, message = "شما با موفقیت وارد شدید",data = loginViewModel.ReturnUrl });
             }
             else if(Result.IsLockedOut)

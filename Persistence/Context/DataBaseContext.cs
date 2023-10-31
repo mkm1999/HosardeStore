@@ -19,10 +19,13 @@ namespace Persistence.Context
         {
                 
         }
+        
         protected override void OnModelCreating(ModelBuilder builder)
         {
 
             base.OnModelCreating(builder);
+
+            builder.Entity<Order>().HasOne(o => o.User).WithMany(u => u.Orders).OnDelete(DeleteBehavior.NoAction);
 
             builder.Entity<IdentityRole<int>>().HasData(
                     new IdentityRole<int>
@@ -69,6 +72,11 @@ namespace Persistence.Context
         public DbSet<Product> products { get; set; }
         public DbSet<ProductImages> productsImages { get; set; }
         public DbSet<ProductProperties> ProductsProperties { get; set; }
-
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<CartItem> CartItems { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<Address> Addresses { get; set;}
     }
 }

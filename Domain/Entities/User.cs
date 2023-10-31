@@ -11,5 +11,8 @@ namespace Domain.Entities
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        public virtual ICollection<Cart>? Carts { get; set; }
+        public virtual ICollection<Address> Addresses { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
     }
 }

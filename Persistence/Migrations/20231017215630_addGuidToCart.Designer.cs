@@ -3,59 +3,23 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence.Context;
 
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20231017215630_addGuidToCart")]
+    partial class addGuidToCart
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .UseIdentityColumns()
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("ProductVersion", "5.0.0");
-
-            modelBuilder.Entity("Domain.Entities.Address", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<string>("City")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Latitude")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Longitude")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phone")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PostalCode")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("State")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("address")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Addresses");
-                });
 
             modelBuilder.Entity("Domain.Entities.Cart", b =>
                 {
@@ -73,7 +37,7 @@ namespace Persistence.Migrations
                     b.Property<bool>("IsFinished")
                         .HasColumnType("bit");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -129,71 +93,6 @@ namespace Persistence.Migrations
                     b.HasIndex("ParentCategoryId");
 
                     b.ToTable("categories");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Order", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<int>("AddressId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("CreatedTime")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("DeliveryCost")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("IsCompeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AddressId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("Domain.Entities.OrderDetail", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .UseIdentityColumn();
-
-                    b.Property<int>("Count")
-                        .HasColumnType("int");
-
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Price")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TotalPrice")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OrderId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("OrderDetails");
                 });
 
             modelBuilder.Entity("Domain.Entities.PrivacyEntity", b =>
@@ -405,28 +304,28 @@ namespace Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "ef257704-e7cb-4f13-b337-512e0e0f4711",
+                            ConcurrencyStamp = "95e6f618-e6ae-471a-8974-4d4bd7e3092f",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "4333f87d-3515-48d2-b3e6-2ada2d0152f9",
+                            ConcurrencyStamp = "534d2271-4dfc-4301-8e48-2a3976a10f07",
                             Name = "Operator",
                             NormalizedName = "OPERATOR"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "517ff036-00c6-4198-9943-b79c2dda9207",
+                            ConcurrencyStamp = "a377dc0e-38a7-4c5a-bad0-8af39a097fd0",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
                             Id = 4,
-                            ConcurrencyStamp = "e7c83167-58d4-4104-abde-bf9c5c558bc4",
+                            ConcurrencyStamp = "787f9944-9562-4906-860f-105a04900635",
                             Name = "Boss",
                             NormalizedName = "BOSS"
                         });
@@ -533,22 +432,13 @@ namespace Persistence.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Address", b =>
-                {
-                    b.HasOne("Domain.Entities.User", "User")
-                        .WithMany("Addresses")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Domain.Entities.Cart", b =>
                 {
                     b.HasOne("Domain.Entities.User", "User")
                         .WithMany("Carts")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });
@@ -579,44 +469,6 @@ namespace Persistence.Migrations
                         .HasForeignKey("ParentCategoryId");
 
                     b.Navigation("ParentCategory");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Order", b =>
-                {
-                    b.HasOne("Domain.Entities.Address", "Address")
-                        .WithMany()
-                        .HasForeignKey("AddressId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.User", "User")
-                        .WithMany("Orders")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.Navigation("Address");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Domain.Entities.OrderDetail", b =>
-                {
-                    b.HasOne("Domain.Entities.Order", "Order")
-                        .WithMany("Details")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Order");
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Domain.Entities.Product", b =>
@@ -715,11 +567,6 @@ namespace Persistence.Migrations
                     b.Navigation("SubCategories");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Order", b =>
-                {
-                    b.Navigation("Details");
-                });
-
             modelBuilder.Entity("Domain.Entities.Product", b =>
                 {
                     b.Navigation("Images");
@@ -729,11 +576,7 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.User", b =>
                 {
-                    b.Navigation("Addresses");
-
                     b.Navigation("Carts");
-
-                    b.Navigation("Orders");
                 });
 #pragma warning restore 612, 618
         }

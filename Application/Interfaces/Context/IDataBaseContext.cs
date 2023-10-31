@@ -21,5 +21,11 @@ namespace Application.Interfaces.Context
         DbSet<Product> products { get; set; }
         DbSet<ProductImages> productsImages { get; set; }
         DbSet<ProductProperties> ProductsProperties { get; set; }
+        DbSet<Domain.Entities.Cart> Carts { get; set; }
+        DbSet<CartItem> CartItems { get; set; }
+        DbSet<User> Users { get; set; }
+        DbSet<Order> Orders { get; set; }
+        DbSet<OrderDetail> OrderDetails { get; set; }
+        DbSet<Address> Addresses { get; set; }
     }
 }

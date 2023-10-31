@@ -1,3 +1,5 @@
+using Application.AddressService;
+using Application.CartServices;
 using Application.Categories.AddCategoryService;
 using Application.Categories.DeleteCategoryService;
 using Application.Categories.EditCategoryService;
@@ -114,8 +116,8 @@ namespace UI
             services.AddTransient<IDeleteProductImage, DeleteProductImage>();
             services.AddTransient<IEditProduct, EditProduct>();
             services.AddTransient<IGetProductsForSite, GetProductsForSite>();
-
-
+            services.AddTransient<ICartServices, CartServices>();
+            services.AddTransient<IAddressServices, AddressServices>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -16,6 +16,8 @@
     <!-- main-style---------------------------------->
     <link rel="stylesheet" href="~/assets/css/main.css">
     <link rel="stylesheet" href="~/assets/css/responsive.css">
+
+    @RenderSection("Css",false);
 </head>
 
 <body>
@@ -162,7 +164,16 @@
                     </div>
                 </section>
                 <!-- Invoke Menu -->
-                @await Component.InvokeAsync("GetMenu")
+                <nav class="header-main-nav">
+                    <div class="d-block">
+                        <div class="align-items-center">
+                            <ul class="menu-ul mega-menu-level-one">
+                                @await Component.InvokeAsync("GetMenu")
+                                @await Component.InvokeAsync("GetCart")
+                            </ul>
+                        </div>
+                    </div>
+                </nav>
                 <!--    responsive-megamenu-mobile----------------->
                 @await Component.InvokeAsync("SmallGetMenu")
                 <div class="nav-btn nav-slider">
