@@ -1,10 +1,12 @@
 ﻿using Application.AddressService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Security.Claims;
 
 namespace UI.Controllers
 {
+    [Authorize]
     public class AddressController : Controller
     {
         private readonly IAddressServices addressServices;
@@ -16,7 +18,11 @@ namespace UI.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            int UserId;
+            string UserIdString = User.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).Select(c => c.Value).FirstOrDefault();
+            UserId = int.Parse(UserIdString);
+            var addresses = addressServices.GetAddresses(UserId);
+            return View(addresses);
         }
 
         [HttpGet]
@@ -36,6 +42,15 @@ namespace UI.Controllers
             request.UserId = UserId;
             var result = addressServices.AddNewAddress(request);
             return Json(result);
+        }
+        public IActionResult Change(int AddressId)
+        {
+            int UserId;
+            string UserIdString = User.Claims.Where(c => c.Type == ClaimTypes.NameIdentifier).Select(c => c.Value).FirstOrDefault();
+            UserId = int.Parse(UserIdString);
+
+            addressServices.ChangeActiveAddress(UserId, AddressId);
+            return RedirectToAction("Index", "Order");
         }
     }
 }

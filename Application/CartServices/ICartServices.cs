@@ -117,9 +117,9 @@ namespace Application.CartServices
                 Count = i.Count,
                 Id = i.Id,
                 ImgSrc = i.Product.Images.FirstOrDefault().Url,
-                ProductPrice = i.Price,
+                ProductPrice = i.Product.Price,
                 ProductTitle = i.Product.Name,
-                TotalPrice = i.Price * i.Count,
+                TotalPrice = i.Product.Price * i.Count,
                 ProductId = i.ProductId
             }).ToList();
 

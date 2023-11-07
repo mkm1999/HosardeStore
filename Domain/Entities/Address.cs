@@ -18,5 +18,6 @@ namespace Domain.Entities
         public string address { get; set; }
         public virtual User User { get; set; }
         public int UserId { get; set; }
+        public bool IsActive { get; set; }
     }
 }

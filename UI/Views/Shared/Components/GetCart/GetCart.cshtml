@@ -3,74 +3,76 @@
     Layout = null;
 }
 
-<li class="divider-space-card d-block">
-    <div class="header-cart-basket">
-        <a href="#" class="cart-basket-box">
-            <span class="icon-cart">
-                <i class="mdi mdi-shopping"></i>
-            </span>
-            <span class="title-cart">سبد خرید</span>
-            <span class="price-cart">
-                @Model.data.TotalPrice.ToString("N0")
-                <span>تومان</span>
-            </span>
-            <span class="count-cart">@Model.data.Items.Count()</span>
-        </a>
-        <div class="widget-shopping-cart">
-            <div class="widget-shopping-cart-content">
-                <div class="wrapper">
-                    <div class="scrollbar" id="style-1">
-                        <div class="force-overflow">
-                            <ul class="product-list-widget">
-                                @foreach (var item in Model.data.Items)
-                                {
-                                    <li class="mini-cart-item">
-                                        <div class="mini-cart-item-content">
-                                            @*<a href="#" class="mini-cart-item-close">
-                                                <i class="mdi mdi-close"></i>
-                                            </a>*@
-                                            <a href="/Products/Details/@item.ProductId" class="mini-cart-item-image d-block">
-                                                <img src="@item.ImgSrc">
-                                            </a>
-                                            <span class="product-name-card">
-                                                @item.ProductTitle
-                                            </span>
-                                            @*<div class="variation">
-                                                <span class="variation-n">
-                                                    فروشنده :
+@if(Model.isSuccess){
+    <li class="divider-space-card d-block">
+        <div class="header-cart-basket">
+            <a href="#" class="cart-basket-box">
+                <span class="icon-cart">
+                    <i class="mdi mdi-shopping"></i>
+                </span>
+                <span class="title-cart">سبد خرید</span>
+                <span class="price-cart">
+                    @Model.data.TotalPrice.ToString("N0")
+                    <span>تومان</span>
+                </span>
+                <span class="count-cart">@Model.data.Items.Count()</span>
+            </a>
+            <div class="widget-shopping-cart">
+                <div class="widget-shopping-cart-content">
+                    <div class="wrapper">
+                        <div class="scrollbar" id="style-1">
+                            <div class="force-overflow">
+                                <ul class="product-list-widget">
+                                    @foreach (var item in Model.data.Items)
+                                    {
+                                        <li class="mini-cart-item">
+                                            <div class="mini-cart-item-content">
+                                                @*<a href="#" class="mini-cart-item-close">
+                                        <i class="mdi mdi-close"></i>
+                                        </a>*@
+                                                <a href="/Products/Details/@item.ProductId" class="mini-cart-item-image d-block">
+                                                    <img src="@item.ImgSrc">
+                                                </a>
+                                                <span class="product-name-card">
+                                                    @item.ProductTitle
                                                 </span>
-                                                <p class="mb-0">کالامارکت </p>
-                                            </div>*@
-                                            @*<div class="header-basket-list-item-color-badge">
-                                                رنگ:
-                                                <span style="background: #000"></span>
-                                            </div>*@
-                                            <div class="quantity">
-                                                <span class="quantity-Price-amount">
-                                                    @item.TotalPrice.ToString("N0")
-                                                    <span>تومان</span>
-                                                </span>
+                                                @*<div class="variation">
+                                        <span class="variation-n">
+                                        فروشنده :
+                                        </span>
+                                        <p class="mb-0">کالامارکت </p>
+                                        </div>*@
+                                                @*<div class="header-basket-list-item-color-badge">
+                                        رنگ:
+                                        <span style="background: #000"></span>
+                                        </div>*@
+                                                <div class="quantity">
+                                                    <span class="quantity-Price-amount">
+                                                        @item.TotalPrice.ToString("N0")
+                                                        <span>تومان</span>
+                                                    </span>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </li>
-                                }
-                                
-                            </ul>
+                                        </li>
+                                    }
+
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="mini-card-total">
-                    <strong>قیمت کل : </strong>
-                    <span class="price-total">
-                        @Model.data.TotalPrice.ToString("N0")
-                        <span>تومان</span>
-                    </span>
-                </div>
-                <div class="mini-card-button">
-                    <a href="/cart" class="view-card">مشاهده سبد خرید</a>
-@*                    <a href="checkout.html" class="card-checkout">تسویه حساب</a>*@
+                    <div class="mini-card-total">
+                        <strong>قیمت کل : </strong>
+                        <span class="price-total">
+                            @Model.data.TotalPrice.ToString("N0")
+                            <span>تومان</span>
+                        </span>
+                    </div>
+                    <div class="mini-card-button">
+                        <a href="/cart" class="view-card">مشاهده سبد خرید</a>
+                        @*                    <a href="checkout.html" class="card-checkout">تسویه حساب</a>*@
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</li>
+    </li>
+}
