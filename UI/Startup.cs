@@ -6,6 +6,7 @@ using Application.Categories.EditCategoryService;
 using Application.Categories.GetCategoriesService;
 using Application.Categories.GetChildsCategories;
 using Application.Categories.GetFullCategroiesService;
+using Application.DeliveryCost;
 using Application.ImageUploadService;
 using Application.Interfaces.Context;
 using Application.NeshanDistabceService;
@@ -120,6 +121,7 @@ namespace UI
             services.AddTransient<ICartServices, CartServices>();
             services.AddTransient<IAddressServices, AddressServices>();
             services.AddTransient<IDistanceService, DistanceService>();
+            services.AddTransient<IDeliveryCostService, DeliveryCostService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
