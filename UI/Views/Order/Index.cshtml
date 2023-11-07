@@ -16,7 +16,7 @@
                 </svg>
                 <div class="col-11">
                     <p class="text-muted">آدرس تحویل سفارش</p>
-                    <p class="h4 font-weight-bolder">@Model.State @Model.City @Model.address</p>
+                    <p class="h4 font-weight-bolder">@Model.State @Model.City @Model.address  @Model.PostalCode</p>
                     <a href="/Address" class="btn btn-outline-info">تغییر آدرس</a>
                     @if (string.IsNullOrEmpty(Model.City))
                     {
@@ -29,16 +29,19 @@
             <div class="m-5" >
                 <p class="text-primary h5">شیوه ارسال</p>
 
-                <div class="d-flex justify-content-between align-items-center my-3">
-                    <div class="form-check ">
-                        <input class="form-check-input mt-2" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                        <label class="form-check-label mr-3  text-info" for="flexRadioDefault1">
-                            پیک فروشگاه
-                        </label>
+                @if (ViewBag.IsBikeActive)
+                {
+                    <div class="d-flex justify-content-between align-items-center my-3">
+                        <div class="form-check ">
+                            <input class="form-check-input mt-2" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                            <label class="form-check-label mr-3  text-info" for="flexRadioDefault1">
+                                پیک فروشگاه
+                            </label>
+                        </div>
+                        <p class="text-dark pt-3">@ViewBag.BikeDeliveryCost.ToString("N0")</p>
                     </div>
-                    <p class="text-dark pt-3">50,000</p>
-                </div>
-                
+                }
+
                 <div class="d-flex justify-content-between align-items-center my-3">
                     <div class="form-check">
                         <input class="form-check-input mt-2" type="radio" name="flexRadioDefault" id="flexRadioDefault2">

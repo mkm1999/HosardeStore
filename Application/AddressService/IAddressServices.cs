@@ -127,6 +127,8 @@ namespace Application.AddressService
                 Id = address.Id,
                 Phone = address.Phone,
                 State = address.State,
+                Latitude = address.Latitude,
+                Longitude = address.Longitude,
             };
         }
     }
@@ -152,5 +154,7 @@ namespace Application.AddressService
         public string Phone { get; set; }
         public string address { get; set; }
         public bool IsActive { get; set; }
+        public string Latitude { get; set; }
+        public string Longitude { get; set; }
     }
 }
