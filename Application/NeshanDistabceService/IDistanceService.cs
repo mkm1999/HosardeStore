@@ -68,11 +68,11 @@ namespace Application.NeshanDistabceService
             var rp = await response.Content.ReadAsStringAsync();
             var jsonObject = JObject.Parse(rp);
             var Distance = (int)jsonObject["rows"][0]["elements"][0]["distance"]["value"];
-            var Duration = (int)jsonObject["rows"][0]["elements"][0]["duration"]["value"];
+            var Duration = (int)jsonObject["rows"][0]["elements"][0]["duration"]["value"] / 60;
 
             return new DistanceAndDurationDto
             {
-                Distance = Distance,
+                Distance = Distance ,
                 Duration = Duration
             };
         }

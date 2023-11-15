@@ -1,0 +1,43 @@
+﻿@using Common;
+@using Application.OrderServices;
+@using System.Globalization;
+@model ResultDto<AddNewOrderResultDto>
+@{
+    ViewData["Title"] = "Submit Order";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    PersianCalendar pc = new PersianCalendar();
+    string arriveTime = $"{pc.GetDayOfMonth(Model.data.ArriveTime)}/{pc.GetMonth(Model.data.ArriveTime)}  {pc.GetHour(Model.data.ArriveTime)}:{pc.GetMinute(Model.data.ArriveTime)}";
+}
+<div class="checkout woocommerce-checkout">
+    <div class="content-checkout container">
+        <div class="middle-container">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>حداکثر زمان ارسال</th>
+                        <th>@arriveTime</th>
+                    </tr>
+                    <tr>
+                        <th>جمع قیمت اقلام</th>
+                        <th>@Model.data.ItemsCost</th>
+                    </tr>
+                    <tr>
+                        <th>هزینه ارسال</th>
+                        <th>@Model.data.DeliveryPrice</th>
+                    </tr>
+                    <tr>
+                        <th>جمع</th>
+                        <th>@Model.data.DeliveryPrice + @Model.data.ItemsCost</th>
+                    </tr>
+                </thead>
+            </table>
+
+            <div class="d-flex align-items-center justify-content-between my-5">
+                <button onclick="Submit(@Model.data.OrderId)" class="btn btn-success mx-auto">پرداخت</button>
+            </div>
+        </div>
+    </div>
+</div>
+
