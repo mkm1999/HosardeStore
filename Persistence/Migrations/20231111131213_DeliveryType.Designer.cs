@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence.Context;
 
 namespace Persistence.Migrations
 {
     [DbContext(typeof(DataBaseContext))]
-    partial class DataBaseContextModelSnapshot : ModelSnapshot
+    [Migration("20231111131213_DeliveryType")]
+    partial class DeliveryType
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -143,9 +145,6 @@ namespace Persistence.Migrations
 
                     b.Property<int>("AddressId")
                         .HasColumnType("int");
-
-                    b.Property<DateTime>("ArriveTime")
-                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("CreatedTime")
                         .HasColumnType("datetime2");
@@ -414,28 +413,28 @@ namespace Persistence.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "be320faf-b5f0-4a64-a571-ac332ee04771",
+                            ConcurrencyStamp = "9d310847-09f2-4690-b773-d1939abdb354",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "0b97d674-b94f-4c2e-a429-12fb0e9cd756",
+                            ConcurrencyStamp = "7c93774b-5963-4b69-82db-d0d21147971b",
                             Name = "Operator",
                             NormalizedName = "OPERATOR"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "1cc99a67-f7de-4b3e-876c-58bdf761b66f",
+                            ConcurrencyStamp = "70630514-e5dd-4119-a266-888576677db0",
                             Name = "Customer",
                             NormalizedName = "CUSTOMER"
                         },
                         new
                         {
                             Id = 4,
-                            ConcurrencyStamp = "a054b450-6528-4965-a9ac-158f46b56779",
+                            ConcurrencyStamp = "a83e648f-e078-45ae-9f06-d93cc6a97a0a",
                             Name = "Boss",
                             NormalizedName = "BOSS"
                         });

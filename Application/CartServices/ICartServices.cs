@@ -14,7 +14,7 @@ namespace Application.CartServices
     {
         ResultDto AddToCart(int ProductId, Guid CartGuid, int? UserId, int Count = 1);
         ResultDto RemoveFromCart(int CartItemId);
-        ResultDto<CartDto> GetCart (Guid CartGuid, int? UserId);
+        ResultDto<CartDto> GetCart (Guid? CartGuid, int? UserId);
         ResultDto IncreaseCount(int CartItemId);
         ResultDto DecreaseCount(int CartItemId);
         void CartUserSpecification(Guid? guid, int userId);
@@ -95,7 +95,7 @@ namespace Application.CartServices
 
         }
 
-        public ResultDto<CartDto> GetCart(Guid CartGuid, int? UserId)
+        public ResultDto<CartDto> GetCart(Guid? CartGuid, int? UserId)
         {
             Cart cart;
             if (UserId == null)
@@ -136,6 +136,7 @@ namespace Application.CartServices
                 {
                     Items = cartItems,
                     TotalPrice = cartItems.Sum(i => i.TotalPrice),
+                    Id = cart.Id
                 }
             };
         }
@@ -220,6 +221,7 @@ namespace Application.CartServices
     {
         public int TotalPrice { get; set; }
         public List<CartItemDto> Items { get; set; }
+        public int Id { get; set; }
     }
 
     public class CartItemDto

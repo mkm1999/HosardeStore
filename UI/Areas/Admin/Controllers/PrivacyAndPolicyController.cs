@@ -24,11 +24,17 @@ namespace UI.Areas.Admin.Controllers
             return View(result);
         }
         [HttpPost]
-        public IActionResult Index(string PrivacyText, string PolicyText)
+        public IActionResult Index(vmdto req)
         {
-            var result = _setPrivacy.SetPolicyService(PrivacyText, PolicyText);
+            var result = _setPrivacy.SetPolicyService(req.PrivacyText, req.PolicyText);
             ViewBag.Massage = result.message;
-            return View(new GetPolicyDto { PolicyText = PolicyText , PrivacyText = PrivacyText});
+            return View(new GetPolicyDto { PolicyText = req.PolicyText , PrivacyText = req.PrivacyText });
+        }
+
+        public class vmdto
+        {
+            public string PrivacyText { get; set; }
+            public string PolicyText { get; set; }
         }
     }
 }

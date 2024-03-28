@@ -69,7 +69,6 @@ namespace Application.ImageUploadService
                 data = $@"\{Folder}\{FullFileName}",
                 isSuccess = true
             };
-
         }
     }
 }

@@ -10,6 +10,7 @@ using Application.DeliveryCost;
 using Application.ImageUploadService;
 using Application.Interfaces.Context;
 using Application.NeshanDistabceService;
+using Application.OrderServices;
 using Application.PrivacyAndPolicy.IGetPrivacyAndPolicyService;
 using Application.PrivacyAndPolicy.SetPrivacyAndPolicy;
 using Application.Products.AddNewProductService;
@@ -122,6 +123,7 @@ namespace UI
             services.AddTransient<IAddressServices, AddressServices>();
             services.AddTransient<IDistanceService, DistanceService>();
             services.AddTransient<IDeliveryCostService, DeliveryCostService>();
+            services.AddTransient<IOrderService, OrderService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
